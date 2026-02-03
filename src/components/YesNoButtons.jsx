@@ -5,6 +5,7 @@ export default function YesNoButtons({ onYes }) {
   const [noPos, setNoPos] = useState({ x: 0, y: 0 });
   const [bounds, setBounds] = useState({ w: 0, h: 0 });
   const [showNo, setShowNo] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
   const containerRef = useRef(null);
   const noRef = useRef(null);
   const yesRef = useRef(null);
@@ -14,6 +15,9 @@ export default function YesNoButtons({ onYes }) {
     const yesBtn = yesRef.current;
     if (!btn || !yesBtn) return;
     const margin = 12;
+
+    const growStep = isMobile ? 0.18 : 0.35;
+    const maxScale = isMobile ? 8 : 12;
 
     const yesWidth = yesBtn.offsetWidth * yesScale;
     const yesHeight = yesBtn.offsetHeight * yesScale;
@@ -28,7 +32,7 @@ export default function YesNoButtons({ onYes }) {
     // If YES essentially fills the container, hide NO.
     if (yesWidth >= availableW || yesHeight >= availableH) {
       setShowNo(false);
-      setYesScale((s) => Math.min(s + 0.35, 12)); // keep inflating a bit
+      setYesScale((s) => Math.min(s + growStep, maxScale)); // keep inflating a bit
       return;
     }
     setShowNo(true);
@@ -78,7 +82,7 @@ export default function YesNoButtons({ onYes }) {
     }
 
     setNoPos({ x: candidate.x, y: candidate.y });
-    setYesScale((s) => Math.min(s + 0.35, 12)); // grow faster each dodge
+    setYesScale((s) => Math.min(s + growStep, maxScale)); // grow faster each dodge
     shakeScreen();
   };
 
@@ -100,6 +104,7 @@ export default function YesNoButtons({ onYes }) {
       if (!c) return;
       const rect = c.getBoundingClientRect();
       setBounds({ w: rect.width, h: rect.height });
+      setIsMobile(window.innerWidth < 640);
     };
     updateBounds();
     window.addEventListener("resize", updateBounds);

@@ -36,7 +36,7 @@ export default function ValentinePage() {
 
   if (!invite) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center gap-4 p-6 text-center">
+      <div className="min-h-screen overflow-hidden flex flex-col items-center justify-center gap-4 p-6 text-center">
         <h1 className="text-3xl font-bold text-rose-600">Link mist info</h1>
         <p className="text-rose-700 text-sm">
           Voeg ?from=Jij&to=Naam toe aan de link om je Valentine te laten zien.
@@ -47,7 +47,7 @@ export default function ValentinePage() {
 
   if (accepted) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center gap-6 p-6 text-center">
+      <div className="min-h-screen overflow-hidden flex flex-col items-center justify-center gap-6 p-6 text-center">
         <SuccessConfetti />
         <h1 className="text-4xl font-extrabold text-rose-600">Yay! 💘</h1>
         <p className="text-lg text-rose-700">
@@ -58,7 +58,7 @@ export default function ValentinePage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center gap-6 p-6 text-center">
+    <div className="min-h-screen overflow-hidden flex flex-col items-center justify-center gap-6 p-6 text-center">
       <audio ref={audioRef} src="https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg" preload="auto" />
       <img src={gifUrl} alt="cute gif" className="w-56 rounded-3xl shadow-float" />
       <h1 className="text-4xl sm:text-5xl font-extrabold text-rose-600">
